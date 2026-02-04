@@ -1,0 +1,201 @@
+:root{
+  /* Background */
+  --bgGlow1: #F5D0FE;
+  --bgGlow2: #C7D2FE;
+  --bgBase1: #E9D5FF;
+  --bgBase2: #DDD6FE;
+
+  /* Text */
+  --text: #2A1F3A;
+
+  /* Card */
+  --cardBg: rgba(255, 255, 255, 0.08);
+  --cardBorder: rgba(255, 255, 255, 0.14);
+  --cardShadow: rgba(0, 0, 0, 0.45);
+
+  /* Buttons */
+  --yesBg: #A78BFA;
+  --yesText: #12081b;
+
+  --noBg: #F3F4F6;
+  --noText: #231532;
+  --activeShadow: rgba(42, 31, 58, 0.18);
+
+  /* Hover shadows */
+  --hoverShadow: rgba(42, 31, 58, 0.22);
+  --yesHoverShadow: rgba(124, 58, 237, 0.25);
+  --noHoverShadow: rgba(42, 31, 58, 0.16);
+}
+
+body{
+  margin: 0;
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  background:
+    radial-gradient(900px 600px at 20% 15%, var(--bgGlow1), transparent 60%),
+    radial-gradient(900px 600px at 85% 85%, var(--bgGlow2), transparent 55%),
+    linear-gradient(140deg, var(--bgBase1), var(--bgBase2));
+
+  color: var(--text);
+}
+
+.card{
+  width: min(560px, 92vw);
+  padding: 24px;
+  border-radius: 20px;
+
+  background: var(--cardBg);
+  border: 1px solid var(--cardBorder);
+
+  box-shadow: 0 18px 60px var(--cardShadow);
+  backdrop-filter: blur(10px);
+
+  animation: slideIn 1000ms ease-out both;
+
+  position: relative;
+}
+
+h1{
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+p{
+  margin: 0 0 16px;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+h2{
+  margin: 0 0 14px;
+  font-size: 22px;
+}
+
+.buttons{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+button{
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 16px;
+
+  font-size: 16px;
+  font-weight: 650;
+
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+button:hover{
+  box-shadow: 0 10px 22px var(--hoverShadow);
+  transform: translateY(-1px);
+}
+
+button:active{
+  transform: translateY(1px);
+  box-shadow: 0 6px 14px var(--activeShadow);
+}
+
+#yes{
+  background: var(--yesBg);
+  color: var(--yesText);
+}
+
+#no{
+  background: var(--noBg);
+  color: var(--noText);
+}
+
+#yes:hover{
+  box-shadow: 0 12px 26px var(--yesHoverShadow);
+  filter: brightness(1.03);
+}
+
+#no:hover{
+  box-shadow: 0 10px 20px var(--noHoverShadow);
+  filter: brightness(0.99);
+}
+
+@keyframes slideIn{
+    from { transform: translateY(200px); opacity: 0;}
+    to { transform: translateY(0); opacity: 1;}
+}
+
+/* wrapper that anchors the outside images */
+.stage{
+  margin: 0;
+  display: grid;
+  place-items: center; 
+  position: relative;
+  width: min(900px, 96vw);
+  padding: 120px 120px 60px; /* space around the card for the outside images */
+}
+
+/* outside images */
+.float{
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 14px 35px rgba(42,31,58,.18);
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+.float.top{
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+}
+
+.float.left{
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.float.right{
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+/* card becomes two columns: text left, gif right */
+.card.twoCol{
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 16px;
+  align-items: center;
+}
+
+.cardGif img{
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+/* mobile: stack everything */
+@media (max-width: 700px){
+  .stage{ padding: 40px 16px; }
+
+  .float{ display: none; } /* hide outside images on small screens */
+
+  .card.twoCol{
+    grid-template-columns: 1fr;
+  }
+
+  .cardGif img{
+    height: 200px;
+  }
+}
